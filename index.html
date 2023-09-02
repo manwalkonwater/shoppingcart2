@@ -156,12 +156,10 @@
                         this.cart.push({ product: { ...product }, quantity: product.quantity });
                     }
 
-                    this.updateTotal();
                 },
 
                 removeFromCart(index) {
                     this.cart.splice(index, 1);
-                    this.updateTotal();
                 },
 
                 updateTotal() {
@@ -170,15 +168,17 @@
 
                 increaseQuantity(product) {
                     product.quantity++;
-                    this.updateTotal();
                 },
 
                 decreaseQuantity(product) {
                     if (product.quantity > 0) {
                         product.quantity--;
-                        this.updateTotal();
                     }
                 },
+                computed: {
+                total() {
+                    return this.cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+                }},
             },
         });
     </script>
